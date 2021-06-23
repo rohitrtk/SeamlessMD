@@ -11,7 +11,6 @@ K_BIRTHDATE  = "birthDate"
 class DataController < ApplicationController
     def index
         @title = "Data";
-
         get_data()
     end
 
@@ -21,51 +20,46 @@ class DataController < ApplicationController
         response = RestClient.get("http://hapi.fhir.org/baseR4/Patient?_count=30&_pretty=true")
 
         entries = JSON.parse(response)["entry"]
-        num_entries = entries.length()
+        @num_patients = entries.length()
+        
+        # Patient array
+        @patients = Array.new()
 
-        entry_res = entries[0]["resource"]
-
-        # Get id
-        id = entry_res["id"]
-        puts id
-
-        # Checking for name information
-        if entry_res.has_key? K_NAME
-            if entry_res[K_NAME][0].has_key? K_FAMILY
-                last_name = entry_res[K_NAME][0][K_FAMILY]
-                puts last_name
-            else
-                puts "No last name information available."
-            end
+        for i in 1..30 do
+            entry_res = entries[i-1]["resource"]
             
-            if entry_res[K_NAME][0].has_key? K_GIVEN
-                first_name = entry_res[K_NAME][0][K_GIVEN][0]
-                puts(first_name + " " + last_name)
-            else
-                puts "No first name information available."
+            puts "\n========== ITERATION ==========" + i.to_s()
+
+            p = Person.new()
+
+            # Get id
+            p.id = entry_res["id"]
+            puts p.id
+
+            # Checking for name information
+            if entry_res.has_key? K_NAME
+                if entry_res[K_NAME][0].has_key? K_FAMILY
+                    p.last_name = entry_res[K_NAME][0][K_FAMILY]
+                end
+                
+                if entry_res[K_NAME][0].has_key? K_GIVEN
+                    p.first_name = entry_res[K_NAME][0][K_GIVEN][0]
+                end
             end
 
-        else
-            puts "No name information available."
-        end
+            # Checking for gender information
+            if entry_res.has_key? K_GENDER
+                p.gender = entry_res[K_GENDER]
+            end
 
-        # Checking for gender information
-        if entry_res.has_key? K_GENDER
-            gender = entry_res[K_GENDER]
-            puts(gender)
-        else
-            puts "No gender information available."
-        end
+            # Checking for birthdate information
+            if entry_res.has_key? K_BIRTHDATE
+                p.birthdate = entry_res[K_BIRTHDATE][0, 10]
+                p.age = `python agecalculator.py #{p.birthdate}`
+            end
 
-        # Checking for birthdate information
-        if entry_res.has_key? K_BIRTHDATE
-            birthdate = entry_res[K_BIRTHDATE][0, 10]
-            puts birthdate
-
-            age = `python agecalculator.py #{birthdate}`
-            puts age
-        else
-            puts "No birthdate information available."
+            puts p
+            @patients.push(p)
         end
     end
 end

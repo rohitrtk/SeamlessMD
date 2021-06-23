@@ -1,6 +1,8 @@
+<%= stylesheet_link_tag "index" %>
+
 <h1><%= @title %></h1>
 
-<h2>Number of patients: </h2>
+<h2>Number of patients: <%= @num_patients %></h2>
 <h2>Average age of patients: </h2>
 
 <table style="width:100%">
@@ -9,7 +11,19 @@
         <th>First Name</th>
         <th>Last Name</th>
         <th>Gender</th>
-        <th>Age</th>
         <th>Birthdate</th>
+        <th>Age</th>
     </tr>
+    <% @patients.each do |patient|%>
+        <tr>
+            <th><%= patient.id%></th>
+            <th><%= patient.first_name%></th>
+            <th><%= patient.last_name%></th>
+            <th><%= patient.gender %></th>
+            <th><%= patient.birthdate %></th>
+            <th><%= patient.age%></th>
+        </tr>
+    <%end%>
 </table>
+
+
