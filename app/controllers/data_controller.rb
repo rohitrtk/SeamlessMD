@@ -28,7 +28,7 @@ class DataController < ApplicationController
         for i in 1..30 do
             entry_res = entries[i-1]["resource"]
             
-            puts "\n========== ITERATION ==========" + i.to_s()
+            puts "\n========== ITERATION " + i.to_s() + " =========="
 
             p = Person.new()
 
@@ -61,5 +61,20 @@ class DataController < ApplicationController
             puts p
             @patients.push(p)
         end
+
+        @average_age = get_average_age()
+    end
+
+    def get_average_age()
+        patients_queried = 0
+        total_age = 0
+        for p in @patients
+            if p.age != "No information available"
+                total_age += p.age
+                patients_queried += 1
+            end
+        end
+
+        return patients_queried > 0 ? total_age / patients_queried : "No information available"
     end
 end

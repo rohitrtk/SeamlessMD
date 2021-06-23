@@ -12,6 +12,6 @@ class Person < ApplicationRecord
 
     def to_s()
         return "id: " + @id.to_s() + "\nFirst Name: " + @first_name + \
-            "\nLast Name: " + @last_name + "\nGender: " + @gender + "\nAge: " + @age + "\nBirthdate: " + @birthdate
+            "\nLast Name: " + @last_name + "\nGender: " + @gender + "\nAge: " + @age + "Birthdate: " + @birthdate
     end
 end
