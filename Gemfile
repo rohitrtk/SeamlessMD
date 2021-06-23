@@ -1,14 +1,4 @@
 source 'https://rubygems.org'
-gem 'nokogiri'
-gem 'rack', '~> 2.0.1'
-gem 'rspec'
-gem 'mime-types'
-gem 'netrc'
-gem 'http-accept'
-gem 'http-cookie'
-gem 'rest-client'
-
-source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.1'
@@ -61,3 +51,9 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem 'mime-types'
+gem 'netrc'
+gem 'http-accept'
+gem 'http-cookie'
+gem 'rest-client'
