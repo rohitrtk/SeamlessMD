@@ -5,3 +5,10 @@ My technical assignment for SeamlessMD. Objective is to pull data off of an [FHI
 HTML page contains a table which displays a patients ID, First Name, Last Name, Gender, Birthdate and Age. Note that sometimes the server doesn't
 give out all of this information, most of the time only an ID is given. In the case where information besides the ID is not given, the table displays
 the message "No information available" in the cell.
+
+Files of interest are:
+* app/controllers/data_controller.rb
+* app/models/person.rb
+* app/views/data/index.html.erb
+* app/assets/stylecheets/index.css
+* ./agecalculator.py
