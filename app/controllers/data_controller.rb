@@ -22,6 +22,9 @@ class DataController < ApplicationController
         entries = JSON.parse(response)["entry"]
         @num_patients = entries.length()
         
+        @total_age = 0
+        @patients_queried = 0
+
         # Patient array
         @patients = Array.new()
 
@@ -32,9 +35,8 @@ class DataController < ApplicationController
 
             p = Person.new()
 
-            # Get id
+            # Set patient id
             p.id = entry_res["id"]
-            puts p.id
 
             # Checking for name information
             if entry_res.has_key? K_NAME
@@ -56,6 +58,9 @@ class DataController < ApplicationController
             if entry_res.has_key? K_BIRTHDATE
                 p.birthdate = entry_res[K_BIRTHDATE][0, 10]
                 p.age = `python agecalculator.py #{p.birthdate}`
+
+                @total_age += p.age.to_f()
+                @patients_queried += 1
             end
 
             puts p
@@ -66,15 +71,6 @@ class DataController < ApplicationController
     end
 
     def get_average_age()
-        patients_queried = 0
-        total_age = 0
-        for p in @patients
-            if p.age != "No information available"
-                total_age += p.age
-                patients_queried += 1
-            end
-        end
-
-        return patients_queried > 0 ? total_age / patients_queried : "No information available"
+        return @patients_queried > 0 ? @total_age / @patients_queried : "No information available"
     end
 end
