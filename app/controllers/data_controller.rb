@@ -78,7 +78,7 @@ class DataController < ApplicationController
             # Checking for birthdate information.
             if !entry_res.birthDate.nil?
                 p.birthdate = entry_res.birthDate
-                p.age = `python agecalculator.py #{p.birthdate}`
+                p.age = `python agecalculator.py #{p.birthdate[0,10]}`
 
                 @total_age += p.age.to_f()
                 @patients_queried += 1
