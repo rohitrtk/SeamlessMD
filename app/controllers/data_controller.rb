@@ -55,7 +55,9 @@ class DataController < ApplicationController
             p.id = entry_res.id
 
             # Checking for name information
-            if !entry_res.name.nil?
+            if !entry_res.name[0].nil?
+
+                # Take first given name in the array
                 fn = entry_res.name[0].given[0]
                 ln = entry_res.name[0].family
 
