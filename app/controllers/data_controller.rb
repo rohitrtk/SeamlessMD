@@ -47,7 +47,7 @@ class DataController < ApplicationController
         for i in 0..29 do
             entry_res = patients.entry[i].resource
             
-            #puts "\n========== ITERATION " + i.to_s() + " =========="
+            puts "========== ITERATION " + i.to_s() + " =========="
 
             p = Person.new()
 
@@ -82,7 +82,7 @@ class DataController < ApplicationController
                 @patients_queried += 1
             end
 
-            #puts p
+            puts p
 
             # Store the patient so the html can retrive patient information.
             @patients.push(p)

@@ -1,3 +1,14 @@
+# Useful information in FHIR -> entry - > resource
+# id
+# language
+# name
+# telecom
+# gender
+# birthDate
+# deceasedBoolean
+# deceasedDateTime
+# address
+# maritalStatus
 class Person < ApplicationRecord
     attr_accessor :id, :first_name, :last_name, :gender, :age, :birthdate
 
@@ -14,6 +25,6 @@ class Person < ApplicationRecord
     # String override for debugging purposes.
     def to_s()
         return "id: " + @id.to_s() + "\nFirst Name: " + @first_name + \
-            "\nLast Name: " + @last_name + "\nGender: " + @gender + "\nAge: " + @age + "Birthdate: " + @birthdate
+            "\nLast Name: " + @last_name + "\nGender: " + @gender + "\nAge: " + @age + "\nBirthdate: " + @birthdate
     end
 end
