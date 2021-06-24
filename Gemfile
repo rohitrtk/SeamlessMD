@@ -57,3 +57,5 @@ gem 'netrc'
 gem 'http-accept'
 gem 'http-cookie'
 gem 'rest-client'
+
+gem 'fhir_models'
